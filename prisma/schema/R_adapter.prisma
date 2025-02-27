@@ -1,0 +1,17 @@
+enum AdapterType {
+    YOUTUBE
+    INSTAGRAM
+    // Add more adapter types as needed
+}
+
+model GroupAdapter {
+    id        String      @id @default(cuid())
+    groupId   String
+    group     Group       @relation(fields: [groupId], references: [id])
+    type      AdapterType
+    info      Json? // Store adapter-specific information (API keys, tokens, etc.)
+    createdAt DateTime    @default(now())
+    updatedAt DateTime    @updatedAt
+
+    @@unique([groupId, type]) // Ensure only one adapter of each type per group (optional, remove if needed)
+}

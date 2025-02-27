@@ -1,0 +1,25 @@
+<!ELEMENT svg (defs,path,rect)>
+<!ATTLIST svg view-box CDATA #REQUIRED>
+<!ATTLIST svg fill NMTOKEN #REQUIRED>
+<!ELEMENT defs (mask)>
+<!ELEMENT mask (rect,text)>
+<!ATTLIST mask id NMTOKEN #REQUIRED>
+<!ELEMENT rect EMPTY>
+<!ATTLIST rect width NMTOKEN #REQUIRED>
+<!ATTLIST rect height NMTOKEN #REQUIRED>
+<!ATTLIST rect fill CDATA #REQUIRED>
+<!ATTLIST rect mask CDATA #IMPLIED>
+<!ATTLIST rect x NMTOKEN #IMPLIED>
+<!ATTLIST rect y NMTOKEN #IMPLIED>
+<!ELEMENT text (#PCDATA)>
+<!ATTLIST text alignment-baseline NMTOKEN #REQUIRED>
+<!ATTLIST text fill NMTOKEN #REQUIRED>
+<!ATTLIST text fontFamily NMTOKEN #REQUIRED>
+<!ATTLIST text font-weight NMTOKEN #REQUIRED>
+<!ATTLIST text font-size NMTOKEN #REQUIRED>
+<!ATTLIST text textAnchor NMTOKEN #REQUIRED>
+<!ATTLIST text transform CDATA #REQUIRED>
+<!ELEMENT path EMPTY>
+<!ATTLIST path d CDATA #REQUIRED>
+<!ATTLIST path stroke CDATA #REQUIRED>
+<!ATTLIST path strokeWidth NMTOKEN #REQUIRED>

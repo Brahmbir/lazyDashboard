@@ -1,0 +1,41 @@
+model Session {
+    id String @id @default(cuid()) // Unique identifier for each session
+
+    userId String // The id of the user
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    token     String // The unique session token
+    expiresAt DateTime // The time when the session expires
+    ipAddress String? // IP address of the device
+    userAgent String? // The user agent information of the device
+    createdAt DateTime // Timestamp of when the verification request was created
+    updatedAt DateTime // Timestamp of when the verification request was updated
+}
+
+model Account {
+    id String @id @default(cuid()) //  Unique identifier for each account
+
+    userId String //  The id of the user
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    accountId             String //  The id of the account as provided by the SSO or equal to userId for credential accounts
+    providerId            String //  The id of the provider
+    accessToken           String? //  The access token of the account. Returned by the provider
+    refreshToken          String? //  The refresh token of the account. Returned by the provider
+    accessTokenExpiresAt  DateTime? //  The time when the verification request expires
+    refreshTokenExpiresAt DateTime? //  The time when the verification request expires
+    scope                 String? //  The scope of the account. Returned by the provider
+    idToken               String? //  The id token returned from the provider
+    password              String? //  The password of the account. Mainly used for email and password authentication
+    createdAt             DateTime //  Timestamp of when the verification request was created
+    updatedAt             DateTime //  Timestamp of when the verification request was updated
+}
+
+model Verification {
+    id         String   @id @default(cuid()) // Unique identifier for each verification
+    identifier String // The identifier for the verification request
+    value      String // The value to be verified
+    expiresAt  DateTime // The time when the verification request expires
+    createdAt  DateTime // Timestamp of when the verification request was created
+    updatedAt  DateTime // Timestamp of when the verification request was updated
+}

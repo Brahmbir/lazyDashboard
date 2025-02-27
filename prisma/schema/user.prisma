@@ -1,0 +1,16 @@
+model User {
+    id            String   @id @default(cuid()) //	Unique identifier for each user
+    name          String //	User's chosen display name
+    email         String   @unique //	User's email address for communication and login
+    fullEmail     String   @unique //	User's email address for communication and login
+    emailVerified Boolean  @default(false) //	Whether the user's email is verified
+    image         String?  @default("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDI0IDI0Ii8+") //	User's image url
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @updatedAt //	Timestamp of when the user account was created
+
+    sessions Session[]
+    Account  Account[]
+
+    groups GroupMember[] //	Groups the user is a member of (via GroupMember)
+    // it can be (owner or moderator or member) 
+}

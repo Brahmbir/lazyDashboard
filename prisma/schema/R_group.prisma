@@ -1,0 +1,38 @@
+model Group {
+    id        String        @id @default(cuid())
+    name      String
+    createdAt DateTime      @default(now())
+    updatedAt DateTime      @updatedAt
+    members   GroupMember[]
+
+    adapters GroupAdapter[] // Relation to multiple adapters for this group
+
+    // videos  Video[] // Relation to videos uploaded to this group
+}
+
+model GroupMember {
+    userId String
+    user   User   @relation(fields: [userId], references: [id])
+    
+    role   Role   @default(MEMBER) // Add a role field
+
+    groupId String
+    group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+    joinedAt  DateTime  @default(now())
+    updatedAt DateTime? @updatedAt // When role or permissions change
+
+    @@id([userId, groupId]) // Composite primary key
+// canManageMembers  Boolean @default(false)
+//     canUploadVideos   Boolean @default(false)
+//     canDeleteVideos   Boolean @default(false)
+//     canEditGroup      Boolean @default(false)
+}
+
+enum Role {
+    OWNER // Group creator, has all permissions
+    // ADMIN // Can manage members and potentially videos
+    MODERATOR
+    MEMBER // Regular member of the group
+    // VIEWER // Can only view videos (if applicable)
+}

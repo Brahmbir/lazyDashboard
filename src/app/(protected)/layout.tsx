@@ -1,20 +1,21 @@
-import Banner from "@/app/(protected)/_components/Banner";
-import { validateRequest } from "@/lib/lucia/auth";
+import { getSession } from "@/lib/auth/server"; // path to your Better Auth server instance
 import { redirect } from "next/navigation";
 
-export default async function SettingsPageLayout({
+export default async function ProtectedLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { user, session } = await validateRequest();
-  if (!user) {
-    return redirect("/login");
+  const session = await getSession();
+  if (!session) {
+    return redirect("/sign-in");
   }
-
   return (
-    <div className="h-screen flex overflow-hidden">
-      <Banner>{children}</Banner>;
-    </div>
+    <>
+      {/* <pre className="absolute z-50 top-[30%] right-0">
+        <code>{JSON.stringify(session)}</code>
+      </pre> */}
+      {children}
+    </>
   );
 }
